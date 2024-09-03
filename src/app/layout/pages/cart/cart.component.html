@@ -1,0 +1,56 @@
+@if (isLoading) {
+<div
+    class="loading w-screen h-screen fixed top-0 left-0 right-0 bottom-0 flex justify-center  items-center bg-white z-[9999]">
+    <span class="loader "></span>
+</div>
+}@else {
+<div>
+    <h1 class="text-xl font-semibold my-3">Shopping Cart</h1>
+
+    <div class="row justify-between mb-3 items-center">
+        <p class="text-green-500 text-xl font-semibold"><span class="text-gray-500 me-1">Total Price
+                :</span>{{cartData.totalCartPrice}}</p>
+
+        <button [routerLink]="['/shippingaddress' , cartData._id]"
+            class="bg-emerald-500 hover:bg-green-500 text-white rounded p-2 ms-auto block md:w-1/12 w-full disabled:hidden"
+            [disabled]="cartCount == 0">Checkout</button>
+
+    </div>
+    @if (cartData) {@for (p of cartData.products; track $index) {
+    <div class="row bg-gray-300 border-b border-white items-center">
+        <div class="md:w-1/12 p-3 w-full">
+            <img [src]="p.product.imageCover" class="w-full" alt="">
+        </div>
+        <div class="md:w-9/12 p-3 w-full">
+            <h2 class="text-lg font-medium mt-2">{{p.product.title}}</h2>
+            <p class="text-green-500 my-3">Price : {{p.price}} </p>
+            <span (click)="removeCartItem(p.product._id)" class="cursor-pointer mb-2">Remove <i
+                    class="fa fa-trash text-green-500"></i></span>
+        </div>
+        <div class="md:w-2/12 p-3 flex justify-center items-center gap-3 w-full">
+            <button class="text-white bg-green-400 rounded p-2" [disabled]="isLoading"
+                (click)="updateProductCartCount(p.product._id ,p.count = p.count+1)">
+                @if (isLoading) {
+                <span><i class="fa fa-spinner fa-spin"></i></span>
+                }@else {
+                <span>+</span>
+                }
+            </button>
+            <span> {{p.count}} </span>
+            <button class="text-white bg-red-500 rounded p-2" [disabled]="isLoading"
+                (click)="updateProductCartCount(p.product._id ,p.count = p.count-1)">
+                @if (isLoading) {
+                <span><i class="fa fa-spinner fa-spin"></i></span>
+                }@else {
+                <span>-</span>
+                }
+            </button>
+        </div>
+    </div>
+    }}
+    <button
+        class="bg-red-400 hover:bg-red-500 text-white rounded p-2 mx-auto block md:w-1/12 w-full my-5 disabled:hidden"
+        [disabled]="cartCount == 0" (click)="clearUserCart()">Clear
+        Cart</button>
+</div>
+}

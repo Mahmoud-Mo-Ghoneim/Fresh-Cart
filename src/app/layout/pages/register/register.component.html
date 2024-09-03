@@ -1,0 +1,109 @@
+<form class="max-w-2xl mx-auto" [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+
+    <h1 class="text-2xl font-normal mb-5">Register Now:</h1>
+    <div class="mb-5">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name:</label>
+        <input type="text" id="Name" formControlName="name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
+        @if (registerForm.get('name')?.errors && registerForm.get('name')?.touched) {
+        <div class="p-4 mb-4 gap-2 flex flex-col mt-1 text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            @if (registerForm.get('name')?.errors?.['required']) {
+            <p>Name is required.</p>
+            }
+            @if (registerForm.get('name')?.errors?.['minlength'] ) {
+            <p>Minemum length is 3.</p>
+            }
+            @if (registerForm.get('name')?.errors?.['maxlength']) {
+            <p>Maximum length is 10.</p>
+            }
+        </div>
+        }
+    </div>
+    <div class="mb-5">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email:</label>
+        <input type="email" id="email" formControlName="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
+
+        @if (registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+        <div class="p-4 mb-4 gap-2 flex flex-col mt-1 text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            @if (registerForm.get('email')?.errors?.['required']) {
+            <p>email is required.</p>
+            }
+            @if (registerForm.get('email')?.errors?.['email']) {
+            <p>email is invalid.</p>
+            }
+        </div>
+        }
+    </div>
+    <div class="mb-5">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password:</label>
+        <input type="text" id="password" formControlName="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
+
+        @if ( registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+        <div class="p-4 mb-4 gap-2 flex mt-1 flex-col text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            @if (registerForm.get('password')?.errors?.['required']) {
+            <p>password is required.</p>
+            }
+            @if (registerForm.get('password')?.errors?.['pattern']) {
+            <p>password Must have one uppercase, one lowercase, one number</p>
+            }
+        </div>
+        }
+    </div>
+
+    <div class="mb-5">
+        <label for="rePassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RePassword:</label>
+        <input type="text" id="password" formControlName="rePassword"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
+
+        @if (registerForm.get('rePassword')?.errors && registerForm.get('rePassword')?.touched) {
+        <div class="p-4 mb-4 gap-2 mt-1 flex flex-col text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+
+            @if (registerForm.get('rePassword')?.errors?.['required']) {
+            <p>rePassword is required.</p>
+            }
+            @if (registerForm.get('rePassword')?.errors?.['missMatch']) {
+            <p>rePassword must match with password.</p>
+            }
+
+        </div>
+        }
+    </div>
+    <div class="mb-5">
+        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone:</label>
+        <input type="tel" id="password" formControlName="phone"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
+
+        @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.touched) {
+        <div class="p-4 mb-4 mt-1 gap-2 flex flex-col text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            @if (registerForm.get('phone')?.errors?.['required']) {
+            <p>phone is required.</p>
+            }
+            @if (registerForm.get('phone')?.errors?.['pattern']) {
+            <p>phone is invalid.</p>
+            }
+        </div>
+        }
+
+    </div>
+    @if (errMsg && !isLoading) {
+    <div class="p-4 mb-4 gap-2 flex flex-col text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400">
+        <p>{{errMsg}}</p>
+    </div>
+    }
+
+    <button type="submit" [disabled]="registerForm.invalid" class="btn-main">
+        @if (isLoading) {
+        <span><i class="fa fa-spinner fa-spin"></i></span>
+        }@else {
+        <span>Submit</span>
+        }
+
+    </button>
+</form>

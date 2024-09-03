@@ -1,0 +1,89 @@
+<h1 class="text-lg  font-semibold mb-5 text-center"> Shipping Address:</h1>
+<form class="max-w-2xl mx-auto" [formGroup]="shippingAddressForm" (ngSubmit)="CheckOut()">
+    <div class="mb-5">
+        <label for="details" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your address</label>
+        <input type="text" id="details" formControlName="details"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
+
+        @if (shippingAddressForm.get('details')?.errors && shippingAddressForm.get('details')?.touched) {
+        <div class="p-4 mb-4 gap-2 mt-1 flex flex-col text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            <p>Please enter a valid address.</p>
+        </div>
+        }
+
+    </div>
+    <div class="mb-5">
+        <label for="tel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your number</label>
+        <input type="tel" id="tel" formControlName="phone"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
+
+        @if (shippingAddressForm.get('phone')?.errors && shippingAddressForm.get('phone')?.touched) {
+        <div class="p-4 mb-4 gap-2 mt-1 flex flex-col text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            <p>Please enter a valid phone.</p>
+        </div>
+        }
+    </div>
+    <div class="mb-5">
+        <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your city</label>
+        <input type="text" id="city" formControlName="city"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
+
+        @if (shippingAddressForm.get('city')?.errors && shippingAddressForm.get('city')?.touched) {
+        <div class="p-4 mb-4 gap-2 mt-1 flex flex-col text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            <p>Please enter a city.</p>
+        </div>
+        }
+
+
+    </div>
+
+</form>
+
+@if (shippingAddressForm.valid) {
+<form class="max-w-2xl mx-auto" [formGroup]="paymentMethodForm" (ngSubmit)="CheckOut()">
+    <div class="my-5 ">
+        <div class="row justify-center items-center">
+
+            <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Choose a Payment Method</h3>
+            <ul class="grid w-full gap-6 md:grid-cols-2">
+                <li>
+                    <input type="radio" id="Cash" name="paymentMethod" value="Cash" value="Cash"
+                        formControlName="paymentMethod" class="hidden peer" />
+                    <label for="Cash"
+                        class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-emerald-500 peer-checked:border-emerald-600 peer-checked:text-emerald-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <div class="block">
+                            <div class="w-full">Cash</div>
+                        </div>
+                        <svg class="w-5 h-5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </label>
+                </li>
+                <li>
+                    <input type="radio" id="Credit" name="paymentMethod" value="Credit" class="hidden peer"
+                        value="Credit" formControlName="paymentMethod">
+                    <label for="Credit"
+                        class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-emerald-500 peer-checked:border-emerald-600 peer-checked:text-emerald-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <div class="block">
+                            <div class="w-full">Credit Card</div>
+                        </div>
+                        <svg class="w-5 h-5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </label>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <button type="submit" [disabled]="paymentMethodForm.invalid"
+        class="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800 ms-auto block disabled:hidden">Submit</button>
+</form>
+}

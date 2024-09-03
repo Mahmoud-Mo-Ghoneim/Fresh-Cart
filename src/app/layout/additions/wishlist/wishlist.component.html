@@ -1,0 +1,31 @@
+@if(isLoading){
+<div
+    class="loading w-screen h-screen fixed top-0 left-0 right-0 bottom-0 flex justify-center  items-center bg-white z-[9999]">
+    <span class="loader "></span>
+</div>
+}@else{
+<h2 class="text-2xl font-semibold mt-4">My Wishlist</h2>
+@if(wishlistData !== null) {
+@for(product of wishlistData.data; track product._id) {
+<div class="wishlist-item-container flex flex-wrap items-center shadow-md relative mt-6 p-4 bg-gray-50 w-10/12 mx-auto">
+    <div class="loader-container hidden absolute inset-0 bg-gray-500 bg-opacity-30 justify-center items-center">
+        <span class="loader"></span>
+    </div>
+    <div class="w-full md:w-2/12">
+        <img class="w-full" [src]="product.imageCover" [alt]="product.title">
+    </div>
+    <div class="w-full md:w-10/12 px-2">
+        <h3 class="text-xl lg:text-2xl font-semibold">{{product.title}}</h3>
+        <p class="text-green-500 text-lg">Price: {{product.price}} EGP</p>
+        <button (click)="removeItemFromWishlist($event, product._id)">Remove <i
+                class="fa-solid fa-trash-can text-green-500"></i></button>
+        <button
+            class="w-full rounded-sm text-white p-1 mt-6 bg-[#08AC0B] cursor-pointer hover:bg-[#197717] transition-all"
+            (click)="addProductToCart(product._id)">Add To Cart <i class="fa-solid fa-cart-shopping"
+                style="color: #ffffff;"></i></button>
+    </div>
+    <hr class="w-3/4 h-1 bg-green-500 absolute bottom-0 start-1/2 -translate-x-1/2 rounded-sm">
+</div>
+}
+}
+}

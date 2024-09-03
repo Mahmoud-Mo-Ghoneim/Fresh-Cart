@@ -1,0 +1,23 @@
+.product {
+  transition: all 0.5s;
+  overflow-y: hidden;
+}
+.product:hover {
+  border-radius: 5px;
+  border: solid 1px #14d414b4;
+  box-shadow: 0 0 10px #11bd1168;
+}
+.btn-row {
+  transition: all 0.5s;
+}
+.product .btn-row {
+  transform: translateY(100%);
+  opacity: 0;
+}
+.product:hover .btn-row {
+  transform: translateY(0);
+  opacity: 1;
+}
+// loader
+
+// loader end

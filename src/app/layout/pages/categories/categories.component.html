@@ -1,0 +1,36 @@
+@if (isLoading) {
+<div
+    class="loading w-screen h-screen fixed top-0 left-0 right-0 bottom-0 flex justify-center  items-center bg-white z-[9999]">
+    <span class="loader "></span>
+</div>
+}@else {
+@if(categoriesData !== null) {
+<div class="flex flex-wrap mt-6">
+    @for(category of categoriesData.data; track category._id) {
+    <div class="w-full md:w-4/12 p-4">
+        <div class="flex flex-col justify-center items-center border rounded-md hover:shadow-md hover:shadow-green-400 transition-all pb-6 cursor-pointer"
+            (click)="getSubcategoriesOnCategory(category._id, category.name)">
+            <div class="w-full">
+                <img class="w-full h-[300px] object-cover object-center" [src]="category.image" [alt]="category.name">
+            </div>
+            <h4 class="text-2xl text-green-500 font-semibold mt-6 text-center">{{category.name}}</h4>
+        </div>
+    </div>
+    }
+</div>
+}
+
+@if(subCategoriesData !== null) {
+<h2 class="text-4xl text-green-500 font-semibold mt-6 text-center">{{mainCategory}} Subcategories</h2>
+<div class="flex flex-wrap mt-6">
+    @for(category of subCategoriesData; track category._id) {
+    <div class="w-full md:w-4/12 p-4">
+        <div
+            class="flex flex-col justify-center items-center border rounded-md hover:shadow-md hover:shadow-green-400 transition-all pb-6 cursor-pointer">
+            <h4 class="text-2xl font-semibold mt-6 text-center">{{category.name}}</h4>
+        </div>
+    </div>
+    }
+</div>
+}
+}

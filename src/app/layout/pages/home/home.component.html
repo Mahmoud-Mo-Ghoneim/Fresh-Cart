@@ -1,0 +1,42 @@
+@if (isLoading) {
+<div
+  class="loading w-screen h-screen fixed top-0 left-0 right-0 bottom-0 flex justify-center  items-center bg-white z-[9999]">
+  <span class="loader "></span>
+</div>
+}@else {
+<app-homeslider></app-homeslider>
+
+<h2 class="my-3 text-xl font-medium">Shop Pupular Categories</h2>
+<app-categoryslider></app-categoryslider>
+<div class="w-3/4 mx-auto my-8">
+
+  <input [(ngModel)]="searchWord" type="search"
+    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
+    placeholder="Search by Title ..." />
+</div>
+<div class="row">
+  @for (product of productList | search : searchWord; track $index) {
+  <div class="lg:w-2/12 md:w-4/12 p-3 cursor-pointer">
+    <div class="product p-2">
+      <div class="w-full" [routerLink]="['/productdetails',product._id]">
+        <img [src]="product.imageCover" alt="" class="w-full">
+        <span class="text-green-500 text-sm">{{product.category.name |lowercase}}</span>
+        <h3 class="my-3 font-medium">{{product.title.split(" ").splice(0, 2).join(" ")}}</h3>
+        <div class="row justify-between items-center">
+          <span>{{product.price | currency :'EGP '}}</span>
+          <span>{{product.ratingsAverage}} <i class="fa fa-star text-yellow-300"></i></span>
+        </div>
+      </div>
+      <div class="row justify-center items-center gap-2 mt-4 btn-row mb-1">
+        <button class="bg-green-500 text-white p-2 hover:bg-green-700 w-3/4 rounded"
+          (click)="addToCart(product._id)">Add To
+          Cart</button>
+        <i class="fa-regular fa-heart text-red-500 cursor-pointer text-2xl flex items-center justify-center 
+           hover:scale-125 hover:text-red-600 duration-300" (click)="addToWishlist(product._id)"></i>
+      </div>
+    </div>
+  </div>
+  }
+
+</div>
+}

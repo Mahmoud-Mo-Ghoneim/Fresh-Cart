@@ -1,0 +1,30 @@
+@if (isLoading) {
+<div
+    class="loading w-screen h-screen fixed top-0 left-0 right-0 bottom-0 flex justify-center  items-center bg-white z-[9999]">
+    <span class="loader "></span>
+</div>
+}@else {
+@if (product) {
+<div class="row">
+    <div class="md:w-4/12 p-2 w-full">
+        <owl-carousel-o [options]="customOptions" class="w-full">
+            @for(image of product.images; track $index) {
+            <ng-template carouselSlide>
+                <img class="w-full" [src]="image" alt="slider-image">
+            </ng-template>
+            }
+        </owl-carousel-o>
+    </div>
+    <div class="md:w-8/12 p-2 flex flex-col justify-center w-full">
+        <h1 class="text-lg font-medium my-3">{{product.title}}</h1>
+        <p class="text-gray-400 text-sm my-3">{{product.description}}</p>
+        <span class="text-xs my-3">{{product.category.name}}</span>
+        <div class="row justify-between items-center">
+            <span class="my-3">{{product.price}}EGP</span>
+            <span class="my-3">{{product.ratingsAverage}}<i class="fa fa-star text-yellow-300"></i></span>
+        </div>
+        <button class="btn-main my-3" (click)="addToCart(product._id)">Add To Cart</button>
+    </div>
+</div>
+}
+}

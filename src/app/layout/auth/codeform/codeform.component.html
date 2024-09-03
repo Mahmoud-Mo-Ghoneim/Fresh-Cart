@@ -1,0 +1,30 @@
+<form class="md:max-w-sm mx-auto w-full" [formGroup]="codeForm" (ngSubmit)="submitCode() ">
+    <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reset Code</label>
+    <input type="text" id="number" aria-describedby="helper-text-explanation" formControlName="resetCode"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
+
+
+    @if (codeForm.get('resetCode')?.errors && codeForm.get('resetCode')?.touched) {
+    <div class="p-3 mb-4 gap-2 flex flex-col mt-1 text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert">
+        <p>Please enter a valid code.</p>
+    </div>
+    }
+
+    @if (errMsg) {
+    <div class="p-4 mb-4 mt-2 gap-2 flex flex-col  text-red-800 rounded-2xl bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert">
+        <p>{{errMsg}}</p>
+    </div>
+    }
+
+    <button [disabled]="codeForm.invalid"
+        class="btn-main mt-5 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+
+        @if (isLoading) {
+        <span><i class="fa fa-spinner fa-spin"></i></span>
+        }@else {
+        <span>Submit</span>
+        }
+    </button>
+</form>
