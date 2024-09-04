@@ -83,19 +83,44 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  toggleWishlist(productId: string) {
+    if (this.isInWishlist(productId)) {
+      this.removeFromWishlist(productId);
+    } else {
+      this.addToWishlist(productId);
+    }
+  }
+
   addToWishlist(productId: string) {
-    console.log(productId);
     this._WishlistService.addProductToWishlist(productId).subscribe({
       next: (res) => {
         this.wishlistProductIds.push(productId);
-        console.log(res, 'wishlist');
-        this._ToastrService.success('item added to wishlist', 'Success', {
+        this._ToastrService.success('Item added to wishlist', 'Success', {
           progressBar: true,
           positionClass: 'toast-top-right',
         });
       },
       error: (err) => {
-        console.log(err);
+        this._ToastrService.error(err.error.message, 'Error', {
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
+      },
+    });
+  }
+
+  removeFromWishlist(productId: string) {
+    this._WishlistService.removeItemFromWishlist(productId).subscribe({
+      next: (res) => {
+        this.wishlistProductIds = this.wishlistProductIds.filter(
+          (id) => id !== productId
+        );
+        this._ToastrService.success('Item removed from wishlist', 'Success', {
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
+      },
+      error: (err) => {
         this._ToastrService.error(err.error.message, 'Error', {
           progressBar: true,
           positionClass: 'toast-top-right',
