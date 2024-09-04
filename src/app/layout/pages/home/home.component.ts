@@ -32,6 +32,7 @@ import { WishlistService } from '../../../shared/services/wishlist/wishlist.serv
 })
 export class HomeComponent implements OnInit {
   productList!: product[];
+  wishlistProductIds: string[] = [];
   isLoading: boolean = true;
   searchWord: string = '';
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
     }
 
     this.getAllproducts();
+    this.loadWishlist();
   }
 
   constructor(
@@ -85,6 +87,7 @@ export class HomeComponent implements OnInit {
     console.log(productId);
     this._WishlistService.addProductToWishlist(productId).subscribe({
       next: (res) => {
+        this.wishlistProductIds.push(productId);
         console.log(res, 'wishlist');
         this._ToastrService.success('item added to wishlist', 'Success', {
           progressBar: true,
@@ -99,5 +102,21 @@ export class HomeComponent implements OnInit {
         });
       },
     });
+  }
+
+  loadWishlist() {
+    this._WishlistService.getUserWishlist().subscribe({
+      next: (res) => {
+        if (res && res.data) {
+          this.wishlistProductIds = res.data.map((item) => item._id);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  isInWishlist(productId: string): boolean {
+    return this.wishlistProductIds.includes(productId);
   }
 }

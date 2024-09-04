@@ -29,11 +29,14 @@
       </div>
       <div class="row justify-center items-center gap-2 mt-4 btn-row mb-1">
         <button class="bg-green-500 text-white p-2 hover:bg-green-700 w-3/4 rounded"
-          (click)="addToCart(product._id)">Add To
-          Cart</button>
-        <i class="fa-regular fa-heart text-red-500 cursor-pointer text-2xl flex items-center justify-center 
-           hover:scale-125 hover:text-red-600 duration-300" (click)="addToWishlist(product._id)"></i>
+          (click)="addToCart(product._id)">Add To Cart</button>
+
+
+        <i [class.fa-solid]="isInWishlist(product._id)" [class.fa-regular]="!isInWishlist(product._id)" class="fa-heart text-red-500 cursor-pointer text-2xl flex items-center justify-center 
+                 hover:scale-125 hover:text-red-600 duration-300" (click)="addToWishlist(product._id)">
+        </i>
       </div>
+
     </div>
   </div>
   }
