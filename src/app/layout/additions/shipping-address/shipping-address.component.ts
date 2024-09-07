@@ -10,6 +10,7 @@ import { OrderService } from '../../../shared/services/orders/order.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../../shared/services/cart/cart.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-shipping-address',
@@ -32,15 +33,19 @@ export class ShippingAddressComponent implements OnInit {
   paymentMethodForm: FormGroup = new FormGroup({
     paymentMethod: new FormControl(null, Validators.required),
   });
-  ngOnInit(): void {}
+
   constructor(
     private _OrderService: OrderService,
     private _ActivatedRoute: ActivatedRoute,
     private _ToastrService: ToastrService,
     private _CartService: CartService,
-    private _Router: Router
+    private _Router: Router,
+    private _Title: Title
   ) {}
 
+  ngOnInit(): void {
+    this._Title.setTitle('Checkout');
+  }
   CheckOut() {
     console.log(this.shippingAddressForm.value);
     if (

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { RouterLink } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +18,8 @@ export class CartComponent implements OnInit {
   cartCount!: number;
   constructor(
     private _CartService: CartService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _Title: Title
   ) {}
 
   ngOnInit(): void {
@@ -28,6 +30,7 @@ export class CartComponent implements OnInit {
     this._CartService.cartCount$.subscribe((count) => {
       this.cartCount = count;
     });
+    this._Title.setTitle('My Cart');
   }
 
   getCartItems() {
@@ -77,7 +80,8 @@ export class CartComponent implements OnInit {
           'Success',
           {
             progressBar: true,
-            positionClass: 'toast-top-right',
+            timeOut: 2000,
+            positionClass: 'toast-top-center',
           }
         );
         this._CartService.updateCartCount();
@@ -97,7 +101,8 @@ export class CartComponent implements OnInit {
           'Success',
           {
             progressBar: true,
-            positionClass: 'toast-top-right',
+            timeOut: 2000,
+            positionClass: 'toast-top-center',
           }
         );
         this._CartService.updateCartCount();
@@ -106,6 +111,8 @@ export class CartComponent implements OnInit {
         console.log(err);
         this._ToastrService.error(err.error.message, 'Error', {
           progressBar: true,
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
       },
     });

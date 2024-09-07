@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Brands } from '../../../shared/interfaces/brands';
 import { FlowbiteService } from '../../../shared/flowbite/flowbite.service';
 import { BrandsService } from '../../../shared/services/brands/brands.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-brands',
@@ -15,13 +16,15 @@ export class BrandsComponent implements OnInit {
   isLoading: boolean = true;
   constructor(
     private _BrandsService: BrandsService,
-    private _FlowbiteService: FlowbiteService
+    private _FlowbiteService: FlowbiteService,
+    private _Title: Title
   ) {}
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('currentPage', '/brands');
     }
     this.getAllBrands();
+    this._Title.setTitle('Brands');
   }
 
   getAllBrands(page?: string): void {

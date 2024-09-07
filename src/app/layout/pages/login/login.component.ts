@@ -8,6 +8,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,11 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 export class LoginComponent implements OnInit {
   isLoading: boolean = false;
   errMsg!: string;
-  constructor(private _AuthService: AuthService, private _Router: Router) {}
+  constructor(
+    private _AuthService: AuthService,
+    private _Router: Router,
+    private _Title: Title
+  ) {}
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -47,5 +52,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._Title.setTitle('Login');
+  }
 }

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../../../shared/services/wishlist/wishlist.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -42,13 +43,15 @@ export class HomeComponent implements OnInit {
 
     this.getAllproducts();
     this.loadWishlist();
+    this._Title.setTitle('Home');
   }
 
   constructor(
     private _ProductService: ProductService,
     private _CartService: CartService,
     private _ToastrService: ToastrService,
-    private _WishlistService: WishlistService
+    private _WishlistService: WishlistService,
+    private _Title: Title
   ) {}
 
   getAllproducts() {
@@ -69,7 +72,8 @@ export class HomeComponent implements OnInit {
         console.log(res);
         this._ToastrService.success(res.message, 'Success', {
           progressBar: true,
-          positionClass: 'toast-top-right',
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
         this._CartService.updateCartCount();
       },
@@ -77,7 +81,8 @@ export class HomeComponent implements OnInit {
         console.log(err);
         this._ToastrService.error(err.error.message, 'Error', {
           progressBar: true,
-          positionClass: 'toast-top-right',
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
       },
     });
@@ -97,13 +102,15 @@ export class HomeComponent implements OnInit {
         this.wishlistProductIds.push(productId);
         this._ToastrService.success('Item added to wishlist', 'Success', {
           progressBar: true,
-          positionClass: 'toast-top-right',
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
       },
       error: (err) => {
         this._ToastrService.error(err.error.message, 'Error', {
           progressBar: true,
-          positionClass: 'toast-top-right',
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
       },
     });
@@ -117,13 +124,15 @@ export class HomeComponent implements OnInit {
         );
         this._ToastrService.success('Item removed from wishlist', 'Success', {
           progressBar: true,
-          positionClass: 'toast-top-right',
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
       },
       error: (err) => {
         this._ToastrService.error(err.error.message, 'Error', {
           progressBar: true,
-          positionClass: 'toast-top-right',
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
       },
     });

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-details',
@@ -35,7 +36,8 @@ export class ProductDetailsComponent implements OnInit {
     private _ProductService: ProductService,
     private _ActivatedRoute: ActivatedRoute,
     private _ToastrService: ToastrService,
-    private _CartService: CartService
+    private _CartService: CartService,
+    private _Title: Title
   ) {}
   product!: product;
   productID!: string;
@@ -44,6 +46,7 @@ export class ProductDetailsComponent implements OnInit {
       window.scrollTo(0, 0);
     }
     this.getProductDetails();
+    this._Title.setTitle('Product Details');
   }
 
   getProductDetails() {
@@ -72,7 +75,8 @@ export class ProductDetailsComponent implements OnInit {
         console.log(res);
         this._ToastrService.success(res.message, 'Success', {
           progressBar: true,
-          positionClass: 'toast-top-right',
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
         this._CartService.updateCartCount();
       },
@@ -80,7 +84,8 @@ export class ProductDetailsComponent implements OnInit {
         console.log(err);
         this._ToastrService.error(err.error.message, 'Error', {
           progressBar: true,
-          positionClass: 'toast-top-right',
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         });
       },
     });

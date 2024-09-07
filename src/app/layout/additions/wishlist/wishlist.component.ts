@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { WishlistData } from '../../../shared/interfaces/wishlist';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { WishlistService } from '../../../shared/services/wishlist/wishlist.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-wishlist',
@@ -17,11 +18,13 @@ export class WishlistComponent {
   constructor(
     private _Wishlist: WishlistService,
     private _CartService: CartService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _Title: Title
   ) {}
 
   ngOnInit(): void {
     this.getWishlistData();
+    this._Title.setTitle('My Wishlist');
   }
 
   getWishlistData() {
@@ -41,7 +44,8 @@ export class WishlistComponent {
         'Added To Cart!',
         {
           progressBar: true,
-          timeOut: 3000,
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
         }
       );
       this._CartService.updateCartCount();

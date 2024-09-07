@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -16,10 +17,14 @@ import { Router } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   isLoading: boolean = false;
   errMsg!: string;
-  constructor(private _AuthService: AuthService, private _Router: Router) {}
+  constructor(
+    private _AuthService: AuthService,
+    private _Router: Router,
+    private _Title: Title
+  ) {}
   registerForm: FormGroup = new FormGroup(
     {
       name: new FormControl('', [
@@ -67,5 +72,8 @@ export class RegisterComponent {
         },
       });
     }
+  }
+  ngOnInit(): void {
+    this._Title.setTitle('Register');
   }
 }

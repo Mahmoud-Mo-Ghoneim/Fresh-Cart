@@ -35,6 +35,7 @@ export class EmailformComponent {
         this.userEmail = this.emailForm.value.email;
         console.log(this.userEmail);
         this.isLoading = false;
+        this._AuthService.setEmail(this.userEmail);
         this.formAction.emit('code');
       },
       error: (err) => {

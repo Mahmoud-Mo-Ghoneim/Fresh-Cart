@@ -18,6 +18,7 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
+  userEmail!: string;
   userData: BehaviorSubject<any> = new BehaviorSubject(null);
   constructor(private _HttpClient: HttpClient, private _Router: Router) {
     if (typeof localStorage !== 'undefined') {
@@ -65,7 +66,12 @@ export class AuthService {
       data
     );
   }
-
+  setEmail(email: string) {
+    this.userEmail = email;
+  }
+  getEmail() {
+    return this.userEmail;
+  }
   resetPassword(data: resetPassword): Observable<uthError | any> {
     return this._HttpClient.put<uthError | any>(
       `${Enviroment.baseUrl}/api/v1/auth/resetPassword`,

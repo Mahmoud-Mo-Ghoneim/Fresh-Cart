@@ -4,6 +4,7 @@ import {
   category,
   categoryResponse,
 } from '../../../shared/interfaces/category';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-categories',
@@ -17,13 +18,17 @@ export class CategoriesComponent implements OnInit {
   mainCategory!: string;
   categoriesData: categoryResponse | null = null;
   isLoading: boolean = true;
-  constructor(private _CategoryService: CategoryService) {}
+  constructor(
+    private _CategoryService: CategoryService,
+    private _Title: Title
+  ) {}
 
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('currentPage', '/categories');
     }
     this.getCategories();
+    this._Title.setTitle('Categories');
   }
 
   getCategories(): void {

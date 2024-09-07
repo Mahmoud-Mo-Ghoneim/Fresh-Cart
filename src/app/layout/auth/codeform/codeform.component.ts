@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -8,7 +13,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './codeform.component.html',
-  styleUrl: './codeform.component.scss'
+  styleUrl: './codeform.component.scss',
 })
 export class CodeformComponent {
   isLoading: boolean = false;
@@ -16,8 +21,8 @@ export class CodeformComponent {
   emailFormFlag: boolean = true;
   codeFormFlag!: boolean;
   resetPasswordFlag!: boolean;
-  userEmail!:string
-  constructor( private _AuthService: AuthService, private _Router: Router) {}
+  userEmail!: string;
+  constructor(private _AuthService: AuthService, private _Router: Router) {}
   @Output() formAction = new EventEmitter<string>();
   codeForm: FormGroup = new FormGroup({
     resetCode: new FormControl(null, [
@@ -26,13 +31,11 @@ export class CodeformComponent {
     ]),
   });
 
-
   submitCode() {
     this.isLoading = true;
     this._AuthService.verifyResetCode(this.codeForm.value).subscribe({
       next: (res) => {
         console.log(res);
-        console.log(this.userEmail);
         this.formAction.emit('password');
       },
       error: (err) => {
@@ -43,7 +46,7 @@ export class CodeformComponent {
     });
   }
 
-  nextPage(){
+  nextPage() {
     this.emailFormFlag = false;
     this.codeFormFlag = false;
     this.resetPasswordFlag = true;

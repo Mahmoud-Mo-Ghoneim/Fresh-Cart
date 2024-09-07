@@ -8,6 +8,7 @@ import { CurrencyPipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
 import { OnsalePipe } from '../../../shared/pipes/onsale.pipe';
 import { SearchPipe } from '../../../shared/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-products',
@@ -33,7 +34,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private _ProductService: ProductService,
     private _CartService: CartService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _Title: Title
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +43,7 @@ export class ProductsComponent implements OnInit {
       localStorage.setItem('currentPage', '/products');
     }
     this.getAllproducts();
+    this._Title.setTitle('Products');
   }
 
   getAllproducts() {
